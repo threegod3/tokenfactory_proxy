@@ -1,0 +1,59 @@
+# Copy to config.yaml (real config is gitignored) and fill in.
+server:
+  host: 127.0.0.1
+  port: 8000
+  api_keys:
+    - sk-tf-local-CHANGE-ME
+  allow_anonymous: false
+  log_level: info
+  request_timeout_seconds: 300
+
+upstream:
+  base_url: https://tokenfactory.kt.com
+  # SOCKS5 egress proxy (socks5h = resolve DNS through proxy). Empty = direct.
+  proxy: socks5h://127.0.0.1:7890
+  cookies_file: ./data/cookies.json
+  cookies_save_file: ./data/cookies.json
+  tenant_id: ""
+  workspace_id: ""
+  chat_mode: auto
+  reuse_conversation: false
+  verify_tls: true
+  connect_timeout_seconds: 20
+  read_timeout_seconds: 300
+  # Upstream free-tier limit observed: 10 chat calls per account per day.
+  daily_quota_per_account: 10
+
+accounts: []   # or fill {email, password} entries for auto re-login
+
+auth:
+  recaptcha_mode: playwright   # playwright | manual | disabled
+
+models:
+  refresh_interval_seconds: 0
+  aliases:
+    # unknown model names (e.g. claude-* from Claude Code) map to this model:
+    "*": openai/gpt-6-astra
+    "auto": auto
+  expose_all_upstream: true
+
+tools:
+  enabled: true
+  compact_schemas: true
+  retry_on_invalid: true
+
+maintenance:
+  enabled: true
+  renew_refresh_days: 3
+  max_browser_concurrency: 2
+  interval_seconds: 1800
+  max_renewals_per_cycle: 4
+
+storage:
+  state_file: ./data/state.json
+  accounts_file: ./data/accounts.json
+  quota_file: ./data/quota.json
+
+admin:
+  enabled: true
+  token: CHANGE-ME-admin-token

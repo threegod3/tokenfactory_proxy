@@ -1,0 +1,8 @@
+# production runtime data — never commit
+data/
+logs/
+config.yaml
+scripts/mail_credentials.json
+*.pyc
+__pycache__/
+.pytest_cache/
